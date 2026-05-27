@@ -38,7 +38,7 @@ DROP COLUMN Gini_index;
 
 
 -- =============================================================
--- data manipulation
+/* -- data manipulation
 -- create database
 drop database if exists united_nations;
 
@@ -81,7 +81,7 @@ INSERT INTO access_to_basic_services(
 
 -- delete row in a table
 DELETE FROM access_to_basic_services
-WHERE Sub_region = 'Central Asia';
+WHERE Sub_region = 'Central Asia'; */
 
 
 
