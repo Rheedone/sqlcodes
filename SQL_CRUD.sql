@@ -75,5 +75,86 @@ where
 	time_period = 2015;
 /*order by 
 	pct_managed_drinking_water_services;*/
+    
+    use united_nations;
+    select * from 
+    access_to_basic_services
+    where country_name like '_i%_a';
+    
+    
+select 
+	region,
+    sub_region,
+    country_name,
+    time_period,
+    pct_unemployment,
+    est_gdp_in_billions
+from
+	access_to_basic_services
+where 
+	country_name = 'Nigeria'
+    or country_name = 'Ethiopia'
+    or country_name = 'congo'
+    or country_name = 'libya'
+    or country_name = 'egypt'
+    and country_name = 'Nicaragua';
+    
+use united_nations;
 
+select 
+	count(*) as number_of_entries,
+    min(time_period) as min_time_period,
+    max(time_period) as max_time_period,
+    avg(Pct_managed_drinking_water_services) as Pct_managed_drinking_water_services,
+    count(distinct country_name) as country_name
+from 
+	access_to_basic_services;
+    
+select 
+	sub_region,
+    country_name,
+    land_area,
+    round(land_area / sum(land_area) over (partition by sub_region) * 100)  as pct_sub_nd_land
+from
+	access_to_basic_services
+where
+	time_period = 2020
+    and land_area is not null;
+    
+select 
+	country_name,
+    time_period,
+    pct_managed_drinking_water_services,
+    rank() over (partition by time_period order by pct_managed_drinking_water_services asc ) as Rank_of_water_services
+from 
+	access_to_basic_services;
+    
+select 
+	country_name,
+    time_period,
+    pct_managed_drinking_water_services,
+    lag(pct_managed_drinking_water_services) over (partition by country_name order by time_period desc) as prev_years,
+    pct_managed_drinking_water_services - lag(pct_managed_drinking_water_services) over (partition by country_name order by time_period asc) as pct_minus_prev_years
+from 
+	access_to_basic_services;
+    
+select distinct
+	country_name
+from 
+	access_to_basic_services;
 
+select 
+	current_date();
+select 
+	NOW();
+select 
+	current_timestamp();
+
+select * 
+from 
+	access_to_basic_services;
+
+select 
+	datediff(year, time_period, now()) as days
+from 
+	access_to_basic_services;
